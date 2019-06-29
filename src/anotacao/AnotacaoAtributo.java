@@ -6,6 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AnotacaoAtributo {
 
-	public String value();
+	public String name();
+	public String type();
+	public double precision();
 
 }

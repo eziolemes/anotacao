@@ -7,61 +7,63 @@ import java.lang.reflect.Method;
 import anotacao.AnotacaoAtributo;
 import anotacao.AnotacaoClasse;
 import anotacao.AnotacaoMetodo;
-import anotada.ExemploAnotado;
 
 public class ExtratorAnotacao {
 
-	
-	public static void main(String[] args) {
-		
-		Annotation anotacoesClasse[] = ExemploAnotado.class.getAnnotations();
-		
+
+	public void extrairMetaDados(Object t) throws ClassNotFoundException {
+
+		Annotation anotacoesClasse[] = t.getClass().getAnnotations();
+
 		for(Annotation ac : anotacoesClasse) {
-			
+
 			if(ac instanceof AnotacaoClasse) {
-				System.out.println("* AnotaÁ„o da classe: " + ((AnotacaoClasse) ac).value());
+				System.out.println("* Anota√ß√£o da classe: " + ((AnotacaoClasse) ac).value());
 			} else {
-				System.out.println("* AnotaÁ„o da classe (tipo desconhecido)");
+				System.out.println("* Anota√ß√£o da classe (tipo desconhecido)");
 			}
 		}
-		
-		Field atributos[] = ExemploAnotado.class.getDeclaredFields();
-		
+
+		Field atributos[] = t.getClass().getDeclaredFields();
+
 		for(Field a : atributos) {
-			
+
 			System.out.println("Atributo: " + a.getName());
-			
+
 			Annotation anotacoesAtributo[] = a.getAnnotations();
-			
+
 			for(Annotation aa : anotacoesAtributo) {
-				
+
 				if(aa instanceof AnotacaoAtributo) {
-					System.out.println("    * AnotaÁ„o do atributo: " + ((AnotacaoAtributo) aa).value());
+					System.out.println("    * Anota√ß√£o do atributo: ");
+					System.out.println("          Column: " + ((AnotacaoAtributo) aa).name());
+					System.out.println("          Type: " + ((AnotacaoAtributo) aa).type());
+					System.out.println("          Precision: " + ((AnotacaoAtributo) aa).precision());
 				} else {
-					System.out.println("    * AnotaÁ„o de atributo (tipo desconhecido)");
+					System.out.println("    * Anota√ß√£o de atributo (tipo desconhecido)");
 				}
-					
+
 			}
-			
+
 		}
-		
-		Method metodos[] = ExemploAnotado.class.getDeclaredMethods();
-		
+
+		Method metodos[] = t.getClass().getDeclaredMethods();
+
 		for(Method m : metodos) {
-			System.out.println("MÈtodo: " + m.getName());
-			
+			System.out.println("m√©todo: " + m.getName());
+
 			Annotation anotacoesMetodo[] = m.getAnnotations();
-			
+
 			for(Annotation mm : anotacoesMetodo) {
-				
+
 				if(mm instanceof AnotacaoMetodo) {
-					System.out.println("    * AnotaÁ„o do mÈtodo: " + ((AnotacaoMetodo) mm).value());
+					System.out.println("    * Anota√ß√£o do m√©todo: " + ((AnotacaoMetodo) mm).value());
 				} else {
-					System.out.println("    * AnotaÁ„o do mÈtodo (tipo desconhecido)");
+					System.out.println("    * Anota√ß√£o do m√©todo (tipo desconhecido)");
 				}
-				
+
 			}
 		}
-		
+
 	}
 }
